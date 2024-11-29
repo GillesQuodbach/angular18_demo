@@ -5,6 +5,7 @@ import {
   Output,
   input,
   output,
+  computed,
 } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 import { User } from './user.model';
@@ -23,20 +24,20 @@ export class UserComponent {
   // ! ***************************************
   // ! Nouvelle manière avec SIGNALS
   // ! ***************************************
-  // avatar = input.required<string>()
-  // name = input.required<string>()
-  // imagePath = computed(()=> {
-  //    return 'assets/users/' + this.avatar()
-  // });
-  // select = output<string>();
+  avatar = input.required<string>();
+  name = input.required<string>();
+  imagePath = computed(() => {
+    return 'assets/users/' + this.avatar();
+  });
+  select = output<string>();
 
   @Input({ required: true }) user!: User;
   @Input({ required: true }) selected!: boolean;
-  @Output() select = new EventEmitter<string>();
+  // @Output() select = new EventEmitter<string>();
 
-  get imagePath() {
-    return 'assets/users/' + this.user.avatar;
-  }
+  // get imagePath() {
+  //   return 'assets/users/' + this.user.avatar;
+  // }
 
   onSelectUser() {
     this.select.emit(this.user.id);
